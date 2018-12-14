@@ -14,30 +14,29 @@
 #include "Reloj.h"
 
 class Pulsadores {
-    public:
-        void begin();
-        void main();
-        void main2();
-        void changeHour();   
-        void changeMinute(); 
-    
-    private:
-        Display display;
-        Reloj reloj;
-        
-        bool edit = true;
+public:
+    void begin();
+    void main();
+    void changeHour();
+    void changeMinute();
 
-        bool antirrebote(short pin);
+private:
+    Display display;
+    Reloj reloj;
 
-        //short cuenta = 0;
-        short estadoPulsadorIncremento;
-        short estadoPulsadorAnteriorIncremento;
-        short estadoPulsadorDecremento;
-        short estadoPulsadorAnteriorDecremento;
+    bool antirrebote(short pin);
 
-        const short pulsadorIncremento = 18; // Pin digital para el pulsador de incremento
-        const short pulsadorDecremento = 19; // Pin digital para el pulsador de decremento
-        const short tiempoAntirrebote = 10; // Variable para almacenar el tiempo antirrebote
+    bool close();
+    bool close2();
+
+    short estadoPulsadorIncremento;
+    short estadoPulsadorAnteriorIncremento;
+    short estadoPulsadorDecremento;
+    short estadoPulsadorAnteriorDecremento;
+
+    const short pulsadorIncremento = 18; // Pin digital para el pulsador de incremento
+    const short pulsadorDecremento = 19; // Pin digital para el pulsador de decremento
+    const short tiempoAntirrebote = 10; // Variable para almacenar el tiempo antirrebote
 };
 
 #endif //RELOJ_PULSADORES_H

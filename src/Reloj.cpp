@@ -5,6 +5,9 @@
 void Reloj::begin() {
     Serial.println("Inicializando reloj...");
     rtc.begin();
+
+    hora = getDate().hour();
+    minutos = getDate().minute();
 }
 
 DateTime Reloj::getDate() {
@@ -12,41 +15,37 @@ DateTime Reloj::getDate() {
 }
 
 void Reloj::adjustHour(short hour) {
+    Serial.println("Ajustando hora");
+
+    hora = hour;
+
     auto date = getDate();
 
     auto year = date.year();
     auto month = date.month();
     auto day = date.day();
-    auto minute = date.minute();
     auto second =  date.second();
-    rtc.adjust(DateTime(year, month, day, hour, minute, second));
-    millis();
+    rtc.adjust(DateTime(year, month, day, hour, date.minute(), second));
 }
 
 void Reloj::adjustMinute(short minute) {
+    Serial.println("Ajustando minuto");
+
+    minutos = minute;
+
     auto date = getDate();
 
     auto year = date.year();
     auto month = date.month();
     auto day = date.day();
-    auto hour = date.hour();
     auto second =  date.second();
-    rtc.adjust(DateTime(year, month, day, hour, minute, second));
-}
-
-short Reloj::getDigit1(short time) {
-    millis();
-    return time / 10;
-}
-
-short Reloj::getDigit2(short time, short digit1) {
-    return time - digit1 * 10;
+    rtc.adjust(DateTime(year, month, day, hora, minute, second));
 }
 
 short Reloj::getDigit1Hour() {
     hourDigit1 = getDate().hour();
     hourDigit1 = hourDigit1 / 10;
-    return hourDigit1;  
+    return hourDigit1;
 }
 
 short Reloj::getDigit2Hour() {
@@ -55,7 +54,7 @@ short Reloj::getDigit2Hour() {
         return hourDigit2;
     }
     hourDigit2 = hourDigit2 - hourDigit1 * 10;
-    return hourDigit2; 
+    return hourDigit2;
 }
 
 short Reloj::getDigit1Minute() {
